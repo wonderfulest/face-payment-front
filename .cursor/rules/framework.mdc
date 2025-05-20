@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+- 使用 vue3 + vite 构建
+- 使用 vue-router
+
+

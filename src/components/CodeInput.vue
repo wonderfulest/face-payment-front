@@ -1,0 +1,130 @@
+<template>
+  <div class="container">
+    <img src="/logo.svg" alt="Garminface Logo" class="logo" />
+    <h1>Enter Code</h1>
+    <p class="desc">
+      Please enter the code shown on your smartwatch or device. A code will only appear after you install a clockface or app.
+    </p>
+    <div class="input-group">
+      <label for="code" class="input-label">Code</label>
+      <input id="code" v-model="code" maxlength="6" placeholder="000000" class="code-input" />
+      <div class="input-desc">The code shown on your smartwatch.</div>
+    </div>
+    <div class="help">
+      Not seeing your code?
+      <a href="#" class="learn-more">Learn more</a>
+    </div>
+    <div class="button-group">
+      <button class="btn outline">Already Purchased</button>
+      <button class="btn">Continue</button>
+    </div>
+    <footer class="footer">
+      © 2025 Garminface. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. Garminface is not affiliated with Fitbit or Garmin.
+    </footer>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const code = ref('')
+</script>
+
+<style scoped>
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 24px 0 24px;
+  text-align: center;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.logo {
+  width: 160px;
+  margin-bottom: 32px;
+}
+h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+.desc {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+.input-group {
+  text-align: left;
+  margin-bottom: 8px;
+}
+.input-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+.code-input {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 16px 12px;
+  border: 4px solid #cbd5e1;
+  border-radius: 16px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+  outline: none;
+}
+.code-input:focus {
+  border-color: #64748b;
+}
+.input-desc {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.help {
+  margin: 24px 0 32px 0;
+  color: #374151;
+  font-size: 1.1rem;
+}
+.learn-more {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 4px;
+}
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 16px 32px;
+  border-radius: 32px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn.outline {
+  background: #fff;
+  color: #000;
+  border: 4px solid #000;
+}
+.btn:hover {
+  background: #374151;
+}
+.btn.outline:hover {
+  background: #f3f4f6;
+}
+.footer {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-top: 32px;
+}
+.footer a {
+  color: #000;
+  text-decoration: underline;
+  margin: 0 2px;
+}
+</style> 
