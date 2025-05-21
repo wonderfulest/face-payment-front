@@ -10,13 +10,16 @@
       <input id="code" v-model="code" maxlength="6" placeholder="000000" class="code-input" />
       <div class="input-desc">The code shown on your smartwatch.</div>
     </div>
+    <div v-if="error" style="color: #e63946; margin-bottom: 8px; text-align: left;">
+      {{ error }}
+    </div>
     <div class="help">
       Not seeing your code?
       <a href="#" class="learn-more">Learn more</a>
     </div>
     <div class="button-group">
       <button class="btn outline">Already Purchased</button>
-      <button class="btn">Continue</button>
+      <button class="btn" :disabled="code.length !== 6 || loading" @click="handleContinue">Continue</button>
     </div>
     <footer class="footer">
       © 2025 Garminface. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. Garminface is not affiliated with Fitbit or Garmin.
@@ -26,7 +29,30 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { purchaseByCode } from '@/api/pay'
 const code = ref('')
+const error = ref('')
+const loading = ref(false)
+const router = useRouter()
+
+const handleContinue = async () => {
+  if (code.value.length !== 6) return
+  error.value = ''
+  loading.value = true
+  try {
+    const res = await purchaseByCode(code.value)
+    if (res.code !== 0) {
+      error.value = 'Cannot find code. If you are sure you typed it correctly, it might have been expired. Please check our FAQ on how to do this.'
+    } else {
+      router.push({ path: '/shop-options' }) // 跳转到 ShopOptions.vue
+    }
+  } catch (e) {
+    error.value = 'Network error, please try again later.'
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <style scoped>
