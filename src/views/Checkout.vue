@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
 import { useShopOptionsStore } from '@/store/shopOptions'
-import { createPaypalOrder } from '@/api/pay'
+import { createPaypalOrder, capturePaypalOrder } from '@/api/pay'
 const store = useShopOptionsStore()
 const product = store.selectedProduct
 const email = ref('')
@@ -56,10 +56,6 @@ const payMethod = ref('paypal')
 const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID
 
 const request = computed(() => store.data.request)
-function onPurchase() {
-  // 这里处理信用卡支付逻辑
-  alert('模拟信用卡支付')
-}
 
 function loadPaypal() {
   if (!window.paypal) return
@@ -78,10 +74,8 @@ function loadPaypal() {
       throw new Error(orderData?.details?.[0]?.description || 'Order create failed')
     },
     async onApprove(data, actions) {
-      const response = await fetch(`/api/paypal/orders/${data.orderID}/capture`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      })
+      const response = await capturePaypalOrder(data.orderID)
+      console.log('capture order', response)
       const orderData = await response.json()
       if (orderData?.details?.[0]?.issue === 'INSTRUMENT_DECLINED') {
         return actions.restart()
