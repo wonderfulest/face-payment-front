@@ -1,9 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router'
-import CodeInput from '@/components/CodeInput.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/code' },
-  { path: '/code', component: CodeInput },
+  { 
+    path: '/code', 
+    name: 'CodeInput', 
+    component: () => import('@/views/CodeInput.vue') 
+  },
   {
     path: '/shop/options',
     name: 'ShopOptions',

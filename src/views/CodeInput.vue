@@ -31,10 +31,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { purchaseByCode } from '@/api/pay'
+import { BizErrorCode } from '@/constant/errorCode'
+import { useShopOptionsStore } from '@/store/shopOptions'
+
 const code = ref('')
 const error = ref('')
 const loading = ref(false)
 const router = useRouter()
+const store = useShopOptionsStore()
 
 const handleContinue = async () => {
   if (code.value.length !== 6) return
@@ -42,10 +46,11 @@ const handleContinue = async () => {
   loading.value = true
   try {
     const res = await purchaseByCode(code.value)
-    if (res.code !== 0) {
+    if (res.code == BizErrorCode.INVALID_PAYMENT_CODE) { // 无效的支付码
       error.value = 'Cannot find code. If you are sure you typed it correctly, it might have been expired. Please check our FAQ on how to do this.'
     } else {
-      router.push({ path: '/shop-options' }) // 跳转到 ShopOptions.vue
+      store.setData(res.data)
+      router.push({ name: 'ShopOptions' })
     }
   } catch (e) {
     error.value = 'Network error, please try again later.'

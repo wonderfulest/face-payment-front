@@ -1,16 +1,19 @@
-import { createApp, ref } from 'vue'
+import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import router from './router'
-import GlobalMessage from '@/components/GlobalMessage.vue'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const app = createApp(App)
-const globalMessageRef = ref()
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 app.use(router)
-app.component('GlobalMessage', GlobalMessage)
+app.use(ElementPlus)
+app.use(pinia)
 app.mount('#app')
 
-// 绑定到 window
-(window as any).$globalMessage = (msg: string, type = 'error', duration = 2500) => {
-  globalMessageRef.value?.show(msg, type, duration)
-}
+

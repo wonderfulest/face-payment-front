@@ -1,50 +1,99 @@
 <template>
   <div class="shop-options">
-    <h1 class="logo">Kiezel<span>Pay</span></h1>
+    <h1 class="logo">Garmin<span>Face</span></h1>
     <h2 class="title">Decision Time</h2>
     <p class="desc">Looks like this creator has some options for you:</p>
     <div class="options">
-      <!-- Whole Store 卡片 -->
-      <div class="option-card">
-        <div class="discount-badge">99% Off</div>
-        <div class="images">
-          <img src="https://garminface.com/assets/blue-radiance.png" alt="face1" />
-          <img src="https://garminface.com/assets/green-digital.png" alt="face2" />
-          <img src="https://garminface.com/assets/colorful-analog.png" alt="face3" />
+      <!-- Bundle 卡片 -->
+      <template v-for="product in products" :key="product.productId">
+        <div v-if="product.isBundle" class="option-card">
+          <div class="discount-badge" v-if="product.discount">{{ product.discount }}</div>
+          <div class="images">
+            <img v-for="item in product.products" :key="item.productId" :src="item.imageUrl" :alt="item.productName" />
+          </div>
+          <h3>{{ product.productName }}</h3>
+          <div class="license">Lifetime License</div>
+          <div class="author">By {{ product.merchantName }}</div>
+          <ul class="features">
+            <li v-if="product.productDescription">{{ product.productDescription }}</li>
+            <li v-if="product.website">😈 Website: <a :href="product.website" target="_blank">{{ product.website }}</a></li>
+            <li v-if="product.bundleContent">📦 {{ product.bundleContent }}</li>
+            <li v-if="product.limitedOffer">⏰ {{ product.limitedOffer }}</li>
+            <li v-if="product.newFaceTip">➕ {{ product.newFaceTip }}</li>
+          </ul>
+          <button class="buy-btn">
+            Buy for <del v-if="product.originalPrice">${{ product.originalPrice }}</del> ${{ product.price }}
+          </button>
         </div>
-        <h3>Whole Store</h3>
-        <div class="license">Lifetime License</div>
-        <div class="author">By wonderful</div>
-        <ul class="features">
-          <li>😈 Website: <a href="https://garminface.com" target="_blank">https://garminface.com</a></li>
-          <li>📦 This bundle contains all our designs!</li>
-          <li>⏰ Limited time offer, over 90% off!</li>
-          <li>➕ New clock faces are added to this bundle regularly and will be yours for free!</li>
-        </ul>
-        <button class="buy-btn">
-          Buy for <del>$998.98</del> $9.90
-        </button>
-      </div>
-      <!-- Blue Radiance 卡片 -->
-      <div class="option-card">
-        <div class="images single">
-          <img src="https://garminface.com/assets/blue-radiance.png" alt="Blue Radiance" />
+        <!-- 单品卡片 -->
+        <div v-else class="option-card">
+          <div class="images single">
+            <img :src="product.imageUrl" :alt="product.productName" />
+          </div>
+          <h3>{{ product.productName }}</h3>
+          <div class="license">Lifetime License</div>
+          <div class="author">By {{ product.merchantName }}</div>
+          <div class="features">{{ product.productDescription }}</div>
+          <button class="buy-btn">Buy for ${{ product.price }}</button>
         </div>
-        <h3>Blue Radiance</h3>
-        <div class="license">Lifetime License</div>
-        <div class="author">By wonderful</div>
-        <div class="features">Blue Radiance</div>
-        <button class="buy-btn">Buy for $1.99</button>
-      </div>
+      </template>
     </div>
     <footer>
-      © 2025 KiezelPay. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. KiezelPay is not affiliated with Fitbit or Garmin.
+      © 2025 GarminFace. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. GarminFace is not affiliated with Fitbit or Garmin.
     </footer>
   </div>
 </template>
 
-<script setup>
-// 这里可以添加跳转、购买等逻辑
+<script setup lang="ts">
+import { useShopOptionsStore } from '@/store/shopOptions'
+import { computed } from 'vue'
+
+interface Product {
+  productName: string
+  productDescription: string
+  productId: number
+  isBundle: boolean
+  merchantName: string
+  price: number
+  imageUrl: string
+  licenseValidityDurationInDays: number | null
+  appId: number
+  allowTipping: boolean | null
+  bundleContent: string | null
+  products?: Product[]
+  discount?: string
+  website?: string
+  limitedOffer?: string
+  newFaceTip?: string
+  originalPrice?: number
+}
+
+interface ShopOptionsData {
+  products: Product[]
+  request: any
+  detectedLocation: string
+}
+
+const store = useShopOptionsStore()
+const products = computed(() => store.data?.products || [])
+
+// 数据加工，补充演示用字段（实际应后端返回）
+const processedProducts = computed(() => {
+  return products.value.map(p => {
+    if (p.isBundle) {
+      return {
+        ...p,
+        discount: '99% Off',
+        website: 'https://garminface.com',
+        bundleContent: 'This bundle contains all our designs!',
+        limitedOffer: 'Limited time offer, over 90% off!',
+        newFaceTip: 'New clock faces are added to this bundle regularly and will be yours for free!',
+        originalPrice: 998.98
+      }
+    }
+    return p
+  })
+})
 </script>
 
 <style scoped>

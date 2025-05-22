@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { ref, provide } from 'vue'
-import GlobalMessage from '@/components/GlobalMessage.vue'
-import CodeInput from './components/CodeInput.vue'
 
-const globalMessageRef = ref()
-provide('globalMessage', globalMessageRef)
 </script>
 
 <template>
   <router-view />
-  <GlobalMessage ref="globalMessageRef" />
 </template>
 
 <style scoped>
