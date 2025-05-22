@@ -12,6 +12,11 @@ const routes: RouteRecordRaw[] = [
     name: 'ShopOptions',
     component: () => import('@/views/ShopOptions.vue'),
   },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () => import('@/views/Checkout.vue')
+  },
 ]
 
 export default routes 

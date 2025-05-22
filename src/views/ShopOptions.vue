@@ -21,7 +21,7 @@
             <li v-if="product.limitedOffer">⏰ {{ product.limitedOffer }}</li>
             <li v-if="product.newFaceTip">➕ {{ product.newFaceTip }}</li>
           </ul>
-          <button class="buy-btn">
+          <button class="buy-btn" @click="handleBuy(product)">
             Buy for <del v-if="product.originalPrice">${{ product.originalPrice }}</del> ${{ product.price }}
           </button>
         </div>
@@ -34,7 +34,7 @@
           <div class="license">Lifetime License</div>
           <div class="author">By {{ product.merchantName }}</div>
           <div class="features">{{ product.productDescription }}</div>
-          <button class="buy-btn">Buy for ${{ product.price }}</button>
+          <button class="buy-btn" @click="handleBuy(product)">Buy for ${{ product.price }}</button>
         </div>
       </template>
     </div>
@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { useShopOptionsStore } from '@/store/shopOptions'
+import { useRouter } from 'vue-router'
 import { computed } from 'vue'
 
 interface Product {
@@ -75,6 +76,7 @@ interface ShopOptionsData {
 }
 
 const store = useShopOptionsStore()
+const router = useRouter()
 const products = computed(() => store.data?.products || [])
 
 // 数据加工，补充演示用字段（实际应后端返回）
@@ -94,6 +96,11 @@ const processedProducts = computed(() => {
     return p
   })
 })
+
+function handleBuy(product) {
+  store.selectedProduct = product // 你需要在 store 里加 selectedProduct 字段
+  router.push({ name: 'Checkout' })
+}
 </script>
 
 <style scoped>

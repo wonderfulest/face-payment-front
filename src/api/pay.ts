@@ -11,3 +11,11 @@ export const purchaseByCode = (code: string): Promise<Response> => {
   return instance.post('/trials/v1/purchase', { code })
 }
 
+
+export const createPaypalOrder = (request: any): Promise<Response> => {
+  return instance.post('/paypal/orders', request)
+}
+
+export const capturePaypalOrder = (orderId: string): Promise<Response> => {
+  return instance.post(`/paypal/orders/${orderId}/capture`)
+}
