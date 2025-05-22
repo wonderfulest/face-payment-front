@@ -1,6 +1,6 @@
 <template>
   <div class="checkout">
-    <h1 class="logo">Kiezel<span>Pay</span></h1>
+    <h1 class="logo">Garmin<span>Face</span></h1>
     <h2 class="title">Secure Checkout</h2>
     <div class="checkout-main">
       <div class="checkout-left">
