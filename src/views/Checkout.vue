@@ -20,6 +20,7 @@
           <label class="pay-radio">
             <input type="radio" v-model="payMethod" value="card" />
             <span style="font-weight:bold;">Credit/Debit Card</span>
+            <span v-if="payMethod === 'card'" style="color: #666; margin-left: 8px;">+$0.30 processing fee</span>
           </label>
         </div>
         <div id="paypal-button-container" style="margin-top:24px;"></div>
@@ -31,10 +32,14 @@
           <span>{{ product?.productName }}</span>
           <span>${{ product?.price }}</span>
         </div>
+        <div v-if="payMethod === 'card'" class="summary-row">
+          <span>Processing Fee</span>
+          <span>$0.30</span>
+        </div>
         <hr />
         <div class="summary-row total">
           <span>Total</span>
-          <span>${{ product?.price }}</span>
+          <span>${{ payMethod === 'card' ? (Number(product?.price) + 0.30).toFixed(2) : product?.price }}</span>
         </div>
       </div>
     </div>
@@ -100,12 +105,6 @@ onMounted(() => {
     } else {
         loadPaypal()
     }
-})
-
-watch(payMethod, (val) => {
-  if (val === 'paypal') {
-    setTimeout(loadPaypal, 0)
-  }
 })
 </script>
 
