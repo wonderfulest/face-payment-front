@@ -11,6 +11,10 @@ export const useShopOptionsStore = defineStore('shopOptions', {
     },
     setSelectedProduct(product: any) {
       this.selectedProduct = product
+    },
+    reset() {
+      this.data = null
+      this.selectedProduct = null
     }
   },
   persist: true

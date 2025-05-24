@@ -14,6 +14,9 @@ const instance = axios.create({
 instance.interceptors.response.use(
   response => {
     // 统一处理 code
+    if (response.data.code == BizErrorCode.SUCCESS) {
+      return response.data
+    }
     if (response.data.code == BizErrorCode.SYSTEM_ERROR) { // 系统未知异常，进行弹框提示；其他业务异常，直接返回 data，在业务中处理
       ElMessage.error(response.data.message || '请求失败')
       // 直接 reject，业务代码不用再判断 code

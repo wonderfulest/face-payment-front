@@ -32,8 +32,8 @@
             </div>
             <div class="checkout-right">
                 <div class="summary-row">
-                    <span>{{ product?.productName }}</span>
-                    <span>${{ product?.price }}</span>
+                    <span>{{ product?.productName || 'Product' }}</span>
+                    <span>${{ product?.price || '0.00' }}</span>
                 </div>
                 <div v-if="payMethod === 'card'" class="summary-row">
                     <span>Processing Fee</span>
@@ -42,8 +42,7 @@
                 <hr />
                 <div class="summary-row total">
                     <span>Total</span>
-                    <span>${{ payMethod === 'card' ? (Number(product?.price) + 0.30).toFixed(2) : product?.price
-                        }}</span>
+                    <span>${{ priceTotal.toFixed(2) }}</span>
                 </div>
             </div>
         </div>
@@ -55,14 +54,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onBeforeMount, onMounted, computed } from 'vue'
 import { useShopOptionsStore } from '@/store/shopOptions'
 import { createPaypalOrder, capturePaypalOrder } from '@/api/pay'
+import { BizErrorCode } from '@/constant/errorCode'
+import { ElMessageBox } from 'element-plus'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const store = useShopOptionsStore()
-const product = store.selectedProduct
+const product = computed(() => store.selectedProduct)
+
 const email = ref('')
 const payMethod = ref('paypal')
 const emailError = ref('')
+
+const priceTotal = computed(() => {
+    if (!product.value?.price) return 0
+    if (payMethod.value === 'card') {
+        return Number(product.value.price) + 0.30
+    }
+    return Number(product.value.price)
+})
 
 const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID
 
@@ -71,6 +84,27 @@ const request = computed(() => store.data.request)
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
+
+onBeforeMount(() => {
+    console.log('store.data', store.data)
+    if (!store.data || !store.selectedProduct) {
+        router.push('/')
+        return
+    }
+    email.value = store.data.email || ''
+    payMethod.value = store.data.payMethod || 'paypal'
+})
+
+onMounted(() => {
+    if (!(window as any).paypal) {
+        const script = document.createElement('script')
+        script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`
+        script.onload = loadPaypal
+        document.body.appendChild(script)
+    } else {
+        loadPaypal()
+    }
+})
 
 function loadPaypal() {
     if (!window.paypal) return
@@ -91,24 +125,33 @@ function loadPaypal() {
                 throw new Error(emailError.value)
             }
             emailError.value = ''
-            const fundingSource = data.fundingSource
-            payMethod.value = fundingSource
+            console.log('fundingSource', data)
+            const paymentSource = data.paymentSource
+            payMethod.value = data.paymentSource
             // const  console.log('用户选择的支付方式:', data.fundingSource); // 'paypal' 或 'card'
             console.log('create order', data, actions, request.value)
             // 这里可以传递 product 信息
             const orderData = await createPaypalOrder({
                 ...request.value,
-                fundingSource,
+                paymentSource,
                 email: email.value,
+                price: priceTotal.value,
             })
             console.log('create order', orderData)
-            if (orderData.data.id) return orderData.data.id
-            throw new Error(orderData?.details?.[0]?.description || 'Order create failed')
+            if (orderData.code !== BizErrorCode.SUCCESS) {
+                ElMessageBox.alert(orderData.message || 'Order create failed', 'Error')
+                throw new Error(orderData.message || 'Order create failed')
+            }
+            return orderData.data.id
         },
         async onApprove(data, actions) {
             const response = await capturePaypalOrder(data.orderID)
             console.log('capture order', response)
             const orderData = await response.json()
+            if (orderData.code !== BizErrorCode.SUCCESS) {
+                ElMessageBox.alert(orderData.message || 'Order create failed', 'Error')
+                throw new Error(orderData.message || 'Order create failed')
+            }
             if (orderData?.details?.[0]?.issue === 'INSTRUMENT_DECLINED') {
                 return actions.restart()
             } else if (orderData?.details?.[0]) {
@@ -119,20 +162,11 @@ function loadPaypal() {
                 const transaction = orderData?.purchase_units?.[0]?.payments?.captures?.[0]
                 document.querySelector('#result-message').innerHTML = `Transaction ${transaction.status}: ${transaction.id}`
             }
+            store.reset()
         }
     }).render('#paypal-button-container')
 }
 
-onMounted(() => {
-    if (!(window as any).paypal) {
-        const script = document.createElement('script')
-        script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`
-        script.onload = loadPaypal
-        document.body.appendChild(script)
-    } else {
-        loadPaypal()
-    }
-})
 </script>
 
 <style scoped>
