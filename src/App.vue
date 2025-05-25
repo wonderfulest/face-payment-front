@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref, provide } from 'vue'
-
 </script>
 
 <template>

@@ -44,36 +44,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useShopOptionsStore } from '@/store/shopOptions'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
-
-interface Product {
-  productName: string
-  productDescription: string
-  productId: number
-  isBundle: boolean
-  merchantName: string
-  price: number
-  imageUrl: string
-  licenseValidityDurationInDays: number | null
-  appId: number
-  allowTipping: boolean | null
-  bundleContent: string | null
-  products?: Product[]
-  discount?: string
-  website?: string
-  limitedOffer?: string
-  newFaceTip?: string
-  originalPrice?: number
-}
-
-interface ShopOptionsData {
-  products: Product[]
-  request: any
-  detectedLocation: string
-}
 
 const store = useShopOptionsStore()
 const router = useRouter()

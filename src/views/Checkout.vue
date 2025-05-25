@@ -53,7 +53,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onBeforeMount, onMounted, computed } from 'vue'
 import { useShopOptionsStore } from '@/store/shopOptions'
 import { createPaypalOrder, capturePaypalOrder } from '@/api/pay'
@@ -81,7 +81,7 @@ const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID
 
 const request = computed(() => store.data.request)
 
-function validateEmail(email: string) {
+function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
@@ -96,7 +96,7 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-    if (!(window as any).paypal) {
+    if (!(window).paypal) {
         const script = document.createElement('script')
         script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`
         script.onload = loadPaypal
@@ -115,7 +115,7 @@ function loadPaypal() {
             color: "gold",
             label: "paypal",
         },
-        async createOrder(data: any, actions: any) {
+        async createOrder(data, actions) {
             if (!email.value) {
                 emailError.value = 'We need your email to send receipt.'
                 throw new Error(emailError.value)
