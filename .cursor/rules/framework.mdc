@@ -7,8 +7,7 @@ alwaysApply: false
 - 使用 vue3 + vite 构建
 - 使用 vue-router
 - 使用 Element-plus 
-
-
+- 页面上全部使用 英文
 
 响应数据统一格式为 {"code":-1,"message":"trial not found","data":null}
 

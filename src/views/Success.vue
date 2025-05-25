@@ -3,28 +3,28 @@
         <h1 class="logo">Garmin<span>Face</span></h1>
         <div class="success-content">
             <div class="success-icon">✓</div>
-            <h2 class="success-title">支付成功</h2>
-            <p class="success-message">感谢您的购买！</p>
+            <h2 class="success-title">Payment Successful</h2>
+            <p class="success-message">Thank you for your purchase!</p>
             <div class="order-info">
                 <div class="info-row">
-                    <span>订单号：</span>
+                    <span>Order ID:</span>
                     <span>{{ referenceId }}</span>
                 </div>
                 <div class="info-row">
-                    <span>商品：</span>
+                    <span>Product:</span>
                     <span>{{ productName }}</span>
                 </div>
                 <div class="info-row">
-                    <span>金额：</span>
+                    <span>Amount:</span>
                     <span>${{ amount }}</span>
                 </div>
                 <div class="info-row">
-                    <span>支付方式：</span>
+                    <span>Payment Method:</span>
                     <span>{{ paymentSource === 'paypal' ? 'PayPal' : 'Credit Card' }}</span>
                 </div>
             </div>
             <div class="action-buttons">
-                <button class="home-btn" @click="goHome">返回首页</button>
+                <button class="home-btn" @click="goHome">Return to Home</button>
             </div>
         </div>
     </div>
