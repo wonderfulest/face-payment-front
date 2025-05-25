@@ -145,28 +145,18 @@ function loadPaypal() {
             return orderData.data.id
         },
         async onApprove(data, actions) {
-            const response = await capturePaypalOrder(data.orderID)
-            console.log('capture order', response)
-            const orderData = await response.json()
+            console.log('onApprove', data, actions)
+            const orderData = await capturePaypalOrder(data.orderID)
+            console.log('capture order', orderData)
             if (orderData.code !== BizErrorCode.SUCCESS) {
                 ElMessageBox.alert(orderData.message || 'Order create failed', 'Error')
                 throw new Error(orderData.message || 'Order create failed')
             }
-            if (orderData?.details?.[0]?.issue === 'INSTRUMENT_DECLINED') {
-                return actions.restart()
-            } else if (orderData?.details?.[0]) {
-                throw new Error(orderData.details[0].description)
-            } else if (!orderData.purchase_units) {
-                throw new Error(JSON.stringify(orderData))
-            } else {
-                const transaction = orderData?.purchase_units?.[0]?.payments?.captures?.[0]
-                document.querySelector('#result-message').innerHTML = `Transaction ${transaction.status}: ${transaction.id}`
-            }
-            store.reset()
+            store.order = orderData.data
+            router.push('/shop/success')
         }
     }).render('#paypal-button-container')
 }
-
 </script>
 
 <style scoped>
