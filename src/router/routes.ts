@@ -22,6 +22,30 @@ const routes: RouteRecordRaw[] = [
     name: 'Success',
     component: () => import('@/views/Success.vue')
   },
+  {
+    path: '/contact/:productId',
+    name: 'Contact',
+    component: () => import('@/views/Contact.vue')
+  },
+  {
+    path: '/faq',
+    name: 'FAQ',
+    component: () => import('@/views/FAQ.vue')
+  },
+  {
+    path: '/unlock',
+    redirect: '/already-purchased'
+  },
+  {
+    path: '/already-purchased',
+    name: 'AlreadyPurchased',
+    component: () => import('@/views/AlreadyPurchased.vue')
+  },
+  {
+    path: '/lookup',
+    name: 'Lookup',
+    component: () => import('@/views/Lookup.vue')
+  },
 ]
 
 export default routes 

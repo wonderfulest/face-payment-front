@@ -1,6 +1,6 @@
 <template>
     <div class="checkout">
-        <h1 class="logo">Garmin<span>Face</span></h1>
+        <Logo />
         <h2 class="title">Secure Checkout</h2>
         <div class="checkout-main">
             <div class="checkout-left">
@@ -10,7 +10,8 @@
                 <div v-if="emailError" class="input-error-text">{{ emailError }}</div>
                 <div class="pay-method-title">Payment Method</div>
                 <div class="pay-method-note">
-                    Note: Paying with Apple Pay, Google Pay or Credit/Debit cards has a $0.30 processing fee.
+                    Note: Paying with Credit/Debit cards has a $0.30 processing fee.
+                    <!-- Apple Pay, Google Pay or  -->
                 </div>
                 <div class="pay-methods">
                     <label class="pay-radio">
@@ -48,7 +49,7 @@
         </div>
         <footer>
             © 2025 GarminFace. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. GarminFace is not
-            affiliated with Fitbit or Garmin.
+            affiliated with Garmin.
         </footer>
     </div>
 </template>
@@ -60,6 +61,13 @@ import { createPaypalOrder, capturePaypalOrder } from '@/api/pay'
 import { BizErrorCode } from '@/constant/errorCode'
 import { ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
+import Logo from '@/components/Logo.vue'
+
+declare global {
+  interface Window {
+    paypal?: any
+  }
+}
 
 const router = useRouter()
 const store = useShopOptionsStore()
@@ -107,8 +115,8 @@ onMounted(() => {
 })
 
 function loadPaypal() {
-    if (!window.paypal) return
-    window.paypal.Buttons({
+    if (!(window as any).paypal) return
+    (window as any).paypal.Buttons({
         style: {
             shape: "rect",
             layout: "vertical",
@@ -144,7 +152,7 @@ function loadPaypal() {
             }
             return orderData.data.id
         },
-        async onApprove(data, actions) {
+        async onApprove(data: any, actions: any) {
             console.log('onApprove', data, actions)
             const orderData = await capturePaypalOrder(data.orderID)
             console.log('capture order', orderData)

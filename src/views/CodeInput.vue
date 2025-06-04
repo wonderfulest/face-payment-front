@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="/logo.svg" alt="Garminface Logo" class="logo" />
+    <Logo />
     <h1>Enter Code</h1>
     <p class="desc">
       Please enter the code shown on your smartwatch or device. A code will only appear after you install a clockface or app.
@@ -22,7 +22,7 @@
       <button class="btn" :disabled="code.length !== 6 || loading" @click="handleContinue">Continue</button>
     </div>
     <footer class="footer">
-      © 2025 Garminface. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. Garminface is not affiliated with Fitbit or Garmin.
+      © 2025 Wristo. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. Wristo is not affiliated with Garmin.
     </footer>
   </div>
 </template>
@@ -33,6 +33,7 @@ import { useRouter } from 'vue-router'
 import { purchaseByCode } from '@/api/pay'
 import { BizErrorCode } from '@/constant/errorCode'
 import { useShopOptionsStore } from '@/store/shopOptions'
+import Logo from '@/components/Logo.vue'
 
 const code = ref('')
 const error = ref('')
@@ -69,8 +70,20 @@ const handleContinue = async () => {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 .logo {
-  width: 160px;
-  margin-bottom: 32px;
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.logo-bold {
+  color: #222;
+  font-weight: 700;
+}
+.logo-green {
+  color: #7ca89c;
+  font-weight: 700;
+  margin-left: 2px;
 }
 h1 {
   font-size: 2.2rem;

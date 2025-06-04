@@ -1,6 +1,6 @@
 <template>
   <div class="shop-options">
-    <h1 class="logo">Garmin<span>Face</span></h1>
+    <Logo />
     <h2 class="title">Decision Time</h2>
     <p class="desc">Looks like this creator has some options for you:</p>
     <div class="options">
@@ -38,9 +38,7 @@
         </div>
       </template>
     </div>
-    <footer>
-      © 2025 GarminFace. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. GarminFace is not affiliated with Fitbit or Garmin.
-    </footer>
+    <Footer />
   </div>
 </template>
 
@@ -48,6 +46,8 @@
 import { useShopOptionsStore } from '@/store/shopOptions'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
+import Footer from '@/components/Footer.vue'
+import Logo from '@/components/Logo.vue'
 
 interface Product {
   productName: string
@@ -69,35 +69,11 @@ interface Product {
   originalPrice?: number
 }
 
-interface ShopOptionsData {
-  products: Product[]
-  request: any
-  detectedLocation: string
-}
-
 const store = useShopOptionsStore()
 const router = useRouter()
 const products = computed(() => store.data?.products || [])
 
-// 数据加工，补充演示用字段（实际应后端返回）
-const processedProducts = computed(() => {
-  return products.value.map(p => {
-    if (p.isBundle) {
-      return {
-        ...p,
-        discount: '99% Off',
-        website: 'https://garminface.com',
-        bundleContent: 'This bundle contains all our designs!',
-        limitedOffer: 'Limited time offer, over 90% off!',
-        newFaceTip: 'New clock faces are added to this bundle regularly and will be yours for free!',
-        originalPrice: 998.98
-      }
-    }
-    return p
-  })
-})
-
-function handleBuy(product) {
+function handleBuy(product: Product) {
   store.selectedProduct = product // 你需要在 store 里加 selectedProduct 字段
   router.push({ name: 'Checkout' })
 }
@@ -223,15 +199,5 @@ h3 {
 del {
   color: #888;
   margin-right: 4px;
-}
-footer {
-  margin-top: 32px;
-  color: #888;
-  font-size: 0.98rem;
-}
-footer a {
-  color: #888;
-  text-decoration: underline;
-  margin: 0 4px;
 }
 </style> 

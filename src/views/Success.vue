@@ -1,6 +1,6 @@
 <template>
     <div class="success">
-        <h1 class="logo">Garmin<span>Face</span></h1>
+        <Logo />
         <div class="success-content">
             <div class="success-icon">✓</div>
             <h2 class="success-title">Payment Successful</h2>
@@ -34,6 +34,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useShopOptionsStore } from '@/store/shopOptions'
+import Logo from '@/components/Logo.vue'
 
 const router = useRouter()
 const store = useShopOptionsStore()
