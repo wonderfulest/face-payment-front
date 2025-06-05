@@ -47,10 +47,7 @@
                 </div>
             </div>
         </div>
-        <footer>
-            © 2025 GarminFace. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. GarminFace is not
-            affiliated with Garmin.
-        </footer>
+        <Footer />
     </div>
 </template>
 
@@ -62,6 +59,7 @@ import { BizErrorCode } from '@/constant/errorCode'
 import { ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import Logo from '@/components/Logo.vue'
+import Footer from '@/components/Footer.vue'
 
 declare global {
   interface Window {

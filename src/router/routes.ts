@@ -46,6 +46,16 @@ const routes: RouteRecordRaw[] = [
     name: 'Lookup',
     component: () => import('@/views/Lookup.vue')
   },
+  {
+    path: '/terms-and-conditions',
+    name: 'TermsAndConditions',
+    component: () => import('@/views/TermsAndConditions.vue')
+  },
+  {
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: () => import('@/views/PrivacyPolicy.vue')
+  },
 ]
 
 export default routes 

@@ -21,9 +21,7 @@
       <button class="btn outline">Already Purchased</button>
       <button class="btn" :disabled="code.length !== 6 || loading" @click="handleContinue">Continue</button>
     </div>
-    <footer class="footer">
-      © 2025 Wristo. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>. Wristo is not affiliated with Garmin.
-    </footer>
+    <Footer />
   </div>
 </template>
 
@@ -34,6 +32,7 @@ import { purchaseByCode } from '@/api/pay'
 import { BizErrorCode } from '@/constant/errorCode'
 import { useShopOptionsStore } from '@/store/shopOptions'
 import Logo from '@/components/Logo.vue'
+import Footer from '@/components/Footer.vue'
 
 const code = ref('')
 const error = ref('')

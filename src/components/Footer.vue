@@ -1,6 +1,7 @@
 <template>
   <footer class="footer">
-    © 2025 WristoIo. <a href="#">Terms of Use</a>. <a href="#">Privacy Policy</a>.
+    © 2025 Wristo. <a href="/terms-and-conditions">Terms of Use</a>. <a href="/privacy-policy">Privacy Policy</a>.
+    <!-- Wristo is not affiliated with Garmin. -->
     <slot />
   </footer>
 </template>
