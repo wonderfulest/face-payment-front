@@ -3,10 +3,10 @@
     <div class="terms-pro-header">
       <Logo />
       <div class="terms-meta">
-        <span class="terms-breadcrumb">Home / Terms of Use</span>
+        <h1 class="terms-title">Website Terms of Use</h1>
+        <!-- <span class="terms-breadcrumb">Home / Terms of Use</span> -->
         <span class="terms-updated">Last Updated: 2025-06-05</span>
       </div>
-      <h1 class="terms-title">Website Terms of Use</h1>
     </div>
     <nav class="terms-toc">
       <ul>
@@ -192,7 +192,7 @@ import Footer from '@/components/Footer.vue'
 .terms-content {
   background: #fff;
   border-radius: 12px;
-  padding: 36px 36px 40px 36px;
+  padding: 16px 36px 40px 36px;
   margin-bottom: 2.5rem;
   box-shadow: 0 2px 8px #0001;
   text-align: left;
