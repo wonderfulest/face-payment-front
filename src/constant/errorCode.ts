@@ -12,11 +12,11 @@ export const BizErrorCode = {
 
 export const BizErrorMessage: Record<number, string> = {
   [BizErrorCode.SUCCESS]: 'success',
-  [BizErrorCode.SYSTEM_ERROR]: '系统错误',
-  [BizErrorCode.PARAM_ERROR]: '参数错误',
-  [BizErrorCode.NOT_FOUND]: '未找到资源',
-  [BizErrorCode.FORBIDDEN]: '无权限访问',
-  [BizErrorCode.INVALID_PAYMENT_CODE]: '无效的支付码',
-  [BizErrorCode.ALREADY_PAID]: '已支付，无需重复操作',
-  [BizErrorCode.PRODUCT_NOT_FOUND]: '未找到产品',
+  [BizErrorCode.SYSTEM_ERROR]: 'System error',
+  [BizErrorCode.PARAM_ERROR]: 'Parameter error',
+  [BizErrorCode.NOT_FOUND]: 'Resource not found',
+  [BizErrorCode.FORBIDDEN]: 'No access permission',
+  [BizErrorCode.INVALID_PAYMENT_CODE]: 'Invalid payment code',
+  [BizErrorCode.ALREADY_PAID]: 'Already paid, no need to repeat',
+  [BizErrorCode.PRODUCT_NOT_FOUND]: 'Product not found',
 }

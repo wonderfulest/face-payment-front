@@ -1,46 +1,46 @@
 <template>
   <div class="faq-page">
     <Logo />
-    <h1 class="faq-title">常见问题解答</h1>
+    <h1 class="faq-title">Frequently Asked Questions</h1>
     <div class="faq-section">
-      <h2>已付费却再次被要求付款？</h2>
-      <p>部分情况下，系统无法识别你已购买的记录（如重装应用/表盘），可通过 <a href="https://wristo.io/unlock" target="_blank">此页面</a> 免费解锁。只需输入设备上显示的 code 及原购买邮箱即可。</p>
+      <h2>Paid but asked to pay again?</h2>
+      <p>In some cases, the system may not recognize your previous purchase (such as after reinstalling the app/watch face). You can unlock for free via <a href="https://wristo.io/unlock" target="_blank">this page</a>. Just enter the code shown on your device and your original purchase email.</p>
     </div>
     <div class="faq-section">
-      <h2>为什么会收到付费提示？如何关闭？</h2>
-      <p>这些提示出现是因为你正在使用付费应用或表盘，且试用期已结束。如不想付费，可卸载该应用/表盘或更换为免费表盘，提示会自动消失。</p>
+      <h2>Why do I see a payment prompt? How to remove it?</h2>
+      <p>These prompts appear because you are using a paid app or watch face and the trial period has ended. If you do not wish to pay, you can uninstall the app/watch face or switch to a free watch face, and the prompt will disappear automatically.</p>
     </div>
     <div class="faq-section">
-      <h2>这是一次性付费还是订阅？</h2>
-      <p>所有表盘/应用均为一次性付费，终身使用。但如重装后系统无法识别，可能会再次要求付款，此时可通过 <a href="https://wristo.io/unlock" target="_blank">此页面</a> 免费解锁。</p>
+      <h2>Is this a one-time payment or a subscription?</h2>
+      <p>All watch faces/apps are one-time payments for lifetime use. However, if the system cannot recognize your purchase after reinstallation, you may be asked to pay again. In this case, you can unlock for free via <a href="https://wristo.io/unlock" target="_blank">this page</a>.</p>
     </div>
     <div class="faq-section">
-      <h2>输入 code 后提示"未知或已用过"？</h2>
-      <p>每个 code 仅限 1 小时内有效，过期需重启表盘/应用以获取新 code。Fitbit 可通过滑动到 today 屏后返回，Garmin 可重启手表。</p>
+      <h2>"Unknown or already used" code error?</h2>
+      <p>Each code is only valid for 1 hour. If expired, please restart the watch face/app to get a new code. For Fitbit, swipe to the today screen and return; for Garmin, restart your watch.</p>
     </div>
     <div class="faq-section">
-      <h2>如何查找我已购买的内容？</h2>
-      <p>可通过 <a href="https://wristo.io/lookup" target="_blank">购买历史查询</a> 页面查看所有购买记录。</p>
+      <h2>How to find my purchased items?</h2>
+      <p>You can view all your purchase records on the <a href="https://wristo.io/lookup" target="_blank">purchase history lookup</a> page.</p>
     </div>
     <div class="faq-section">
-      <h2>购买了捆绑包，如何安装其他表盘/应用？</h2>
-      <p>购买后会收到包含所有内容的邮件，或在 <a href="https://wristo.io/lookup" target="_blank">此页面</a> 查询。下载需在已安装 Fitbit/Garmin/Pebble app 的手机/平板上操作。</p>
+      <h2>Bought a bundle, how to install other watch faces/apps?</h2>
+      <p>After purchase, you will receive an email containing all items, or you can check via <a href="https://wristo.io/lookup" target="_blank">this page</a>. Please download on a phone/tablet with the Fitbit/Garmin/Pebble app installed.</p>
     </div>
     <div class="faq-section">
-      <h2>支持哪些支付方式？</h2>
-      <p>支持 PayPal 及信用卡/借记卡支付。信用卡支付会有 $0.30 手续费，建议优先使用 PayPal。</p>
+      <h2>What payment methods are supported?</h2>
+      <p>We support PayPal and credit/debit cards. There is a $0.30 fee for credit card payments, so PayPal is recommended.</p>
     </div>
     <div class="faq-section">
-      <h2>如何申请退款？</h2>
-      <p>支持 30 天内退款。请通过页面底部联系方式联系客服，提供订单信息。</p>
+      <h2>How to request a refund?</h2>
+      <p>We offer a 14 days no reason refund. Please contact customer service via the contact information at the bottom of the page and provide your order details.</p>
     </div>
     <div class="faq-section">
-      <h2>没有收到 code？</h2>
-      <p>安装表盘/应用后，试用结束时会自动显示 code。未显示时无需操作，功能不受影响。</p>
+      <h2>Didn't receive a code?</h2>
+      <p>After installing the watch face/app, the code will be displayed automatically when the trial ends. If not shown, no action is needed and functionality is not affected.</p>
     </div>
     <div class="faq-section">
-      <h2>解锁时提示未购买？</h2>
-      <p>请确认购买时邮箱填写无误，或核对解锁的表盘/应用名称与购买邮件一致。如仍有问题，请联系客服并提供 PayPal 订单号或信用卡前 6 后 4 位。</p>
+      <h2>Unlock prompt says not purchased?</h2>
+      <p>Please make sure the email you entered at purchase is correct, and that the watch face/app name matches the one in your purchase email. If you still have issues, please contact customer service and provide your PayPal transaction ID or the first 6 and last 4 digits of your credit card.</p>
     </div>
     <Footer />
   </div>

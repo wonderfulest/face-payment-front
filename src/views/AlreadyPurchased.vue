@@ -1,20 +1,20 @@
 <template>
   <div class="already-purchased-page">
     <Logo />
-    <h1 class="title">查找我的历史购买</h1>
-    <p class="desc">请输入你购买时填写的邮箱地址，我们会帮你查找所有历史订单。</p>
+    <h1 class="title">Find My Purchase History</h1>
+    <p class="desc">Please enter the email address you used when purchasing. We will help you find all your past orders.</p>
     <form class="lookup-form" @submit.prevent="handleLookup">
-      <input v-model="email" type="email" placeholder="请输入邮箱" class="email-input" required />
-      <button class="lookup-btn" :disabled="loading">查找</button>
+      <input v-model="email" type="email" placeholder="Enter your email" class="email-input" required />
+      <button class="lookup-btn" :disabled="loading">Lookup</button>
     </form>
     <div v-if="error" class="error">{{ error }}</div>
     <div v-if="orders.length" class="orders-list">
-      <h2>历史订单</h2>
+      <h2>Order History</h2>
       <ul>
         <li v-for="(order, idx) in orders" :key="idx">
-          <div>产品：{{ order.productName }}</div>
-          <div>金额：${{ order.amount }}</div>
-          <div>购买时间：{{ order.date }}</div>
+          <div>Product: {{ order.productName }}</div>
+          <div>Amount: ${{ order.amount }}</div>
+          <div>Purchase Date: {{ order.date }}</div>
         </li>
       </ul>
     </div>
@@ -36,7 +36,7 @@ async function handleLookup() {
   error.value = ''
   orders.value = []
   if (!email.value.trim()) {
-    error.value = '请输入邮箱地址'
+    error.value = 'Please enter your email address'
     return
   }
   loading.value = true
@@ -49,7 +49,7 @@ async function handleLookup() {
         { productName: 'WristoIo Bundle', amount: '9.99', date: '2024-05-15' },
       ]
     } else {
-      error.value = '未找到相关订单，请确认邮箱是否填写正确。'
+      error.value = 'No related orders found. Please check if the email is correct.'
     }
   }, 1200)
 }

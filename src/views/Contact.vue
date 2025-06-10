@@ -1,8 +1,8 @@
 <template>
   <div class="contact-faq">
     <Logo />
-    <h2 class="title">产品支持与联系</h2>
-    <p class="desc">有关于 <span class="product-name">{{ productName }}</span> 的问题？我们为你解答：</p>
+    <h2 class="title">Product Support & Contact</h2>
+    <p class="desc">Have questions about <span class="product-name">{{ productName }}</span>? We are here to help:</p>
     <div class="faq-list">
       <div class="faq-item" v-for="(item, idx) in faqs" :key="idx">
         <h3 class="faq-q">{{ item.q }}</h3>
@@ -10,14 +10,14 @@
       </div>
     </div>
     <div class="contact-block">
-      <h3>还需要帮助？</h3>
-      <p>请通过以下方式联系我们：</p>
+      <h3>Need more help?</h3>
+      <p>Please contact us via the following methods:</p>
       <ul>
-        <li>邮箱：<a :href="`mailto:support@wristo.io?subject=产品咨询:${productName}`">support@wristo.io</a></li>
-        <li>或在下方留言，我们会尽快回复。</li>
+        <li>Email: <a :href="`mailto:support@wristo.io?subject=Product Inquiry: ${productName}`">support@wristo.io</a></li>
+        <li>Or leave a message below, we will reply as soon as possible.</li>
       </ul>
-      <textarea placeholder="请输入你的问题或反馈..." v-model="message"></textarea>
-      <button class="send-btn" @click="sendMessage">发送</button>
+      <textarea placeholder="Please enter your question or feedback..." v-model="message"></textarea>
+      <button class="send-btn" @click="sendMessage">Send</button>
     </div>
     <Footer />
   </div>
@@ -32,43 +32,43 @@ import Logo from '@/components/Logo.vue'
 const route = useRoute()
 const productId = computed(() => route.params.productId)
 // 实际项目可根据 productId 获取产品名，这里演示用
-const productName = computed(() => `产品 #${productId.value}`)
+const productName = computed(() => `Product #${productId.value}`)
 
 const faqs = [
   {
-    q: '我已经购买了，为什么还会被再次收费？',
-    a: '部分情况下，系统无法识别你已购买的记录（如重装应用/表盘），可通过 <a href="https://kzl.io/unlock" target="_blank">此页面</a> 免费解锁。',
+    q: 'I have already purchased, why am I being charged again?',
+    a: 'In some cases, the system may not recognize your previous purchase (such as after reinstalling the app/watch face). You can unlock for free via <a href="https://kzl.io/unlock" target="_blank">this page</a>.',
   },
   {
-    q: '如何获取我的购买码？',
-    a: '无需专门的购买码，直接在设备上安装表盘/应用并按提示操作即可。如需再次解锁，可访问 <a href="https://kzl.io/unlock" target="_blank">此页面</a>。',
+    q: 'How do I get my purchase code?',
+    a: 'No special purchase code is needed. Just install the watch face/app on your device and follow the instructions. If you need to unlock again, visit <a href="https://kzl.io/unlock" target="_blank">this page</a>.',
   },
   {
-    q: '这是一次性付费还是订阅？',
-    a: '所有表盘/应用均为一次性付费，终身使用。',
+    q: 'Is this a one-time payment or a subscription?',
+    a: 'All watch faces/apps are one-time payments for lifetime use.',
   },
   {
-    q: '我如何查找我过去购买的内容？',
-    a: '可通过 <a href="https://kiezelpay.com/lookup" target="_blank">购买历史查询</a> 页面查看所有购买记录。',
+    q: 'How can I find my past purchases?',
+    a: 'You can view all your purchase records on the <a href="https://kiezelpay.com/lookup" target="_blank">purchase history lookup</a> page.',
   },
   {
-    q: '我购买了捆绑包，如何安装其他表盘/应用？',
-    a: '购买后会收到包含所有内容的下载链接邮件，或在 <a href="https://kiezelpay.com/lookup" target="_blank">此页面</a> 查询。',
+    q: 'I bought a bundle, how do I install other watch faces/apps?',
+    a: 'After purchase, you will receive an email with download links for all items, or you can check via <a href="https://kiezelpay.com/lookup" target="_blank">this page</a>.',
   },
   {
-    q: '遇到问题无法解锁或找不到购买记录怎么办？',
-    a: '请确认邮箱填写无误，或通过页面下方联系方式联系我们。',
+    q: 'What if I cannot unlock or cannot find my purchase record?',
+    a: 'Please make sure your email is correct, or contact us using the information at the bottom of the page.',
   },
 ]
 
 const message = ref('')
 function sendMessage() {
   if (!message.value.trim()) {
-    alert('请输入你的问题或反馈')
+    alert('Please enter your question or feedback')
     return
   }
   // 这里可集成实际的消息发送逻辑
-  alert('已收到，我们会尽快回复！')
+  alert('Received! We will reply as soon as possible!')
   message.value = ''
 }
 </script>
